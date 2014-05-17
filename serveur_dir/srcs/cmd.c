@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/16 20:02:10 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/17 14:29:00 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/17 16:22:02 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,35 @@ void		ft_ls(int cs)
 		free(res);
 }
 
+int			is_dir(int fd)
+{
+	struct stat		file_stat;
+
+	if (fstat(fd, &file_stat))
+		return (-1);
+	return ((file_stat.st_mode & S_IFDIR) == S_IFDIR);
+}
+
 int			ft_cd(int cs, char *dir, char *home)
 {
-	struct stat		st;
 	char			**tmp;
 	char			*save;
+	int				fd;
 
 	tmp = ft_strsplit(dir, ' ');
 	if (ft_tabsize((void **)tmp) == 2)
 	{
-		lstat(tmp[1], &st);
-		if (S_ISDIR(st.st_mode))
+		fd = open(dir, 0);
+		if (is_dir(fd))
 		{
 			save = get_pwd();
 			chdir(tmp[1]);
-			if (ft_strncmp(home, get_pwd(), ft_strlen(home)))
-			{
-				chdir(save);
+			if (ft_strncmp(home, get_pwd(), ft_strlen(home)) && chdir(save))
 				return (send_error(cs, "error"));
-			}
 		}
 		else
 			return (send_error(cs, "not a directory"));
+		close(fd);
 	}
 	else if (ft_tabsize((void **)tmp) == 1)
 		chdir(home);

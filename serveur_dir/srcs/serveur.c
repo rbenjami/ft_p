@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 16:48:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/17 14:21:03 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/17 15:42:15 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void		soon(int cs)
 			ft_ls(cs);
 		else if (!ft_strcmp(buf, "pwd"))
 			send_msg(cs, get_pwd(), 0);
-		else if (!ft_strncmp(buf, "cd", 2))
+		else if (!ft_strncmp(buf, "cd ", 3) || !ft_strcmp(buf, "cd"))
 			ft_cd(cs, buf, home);
 		else if (!ft_strcmp(buf, "quit"))
 			break ;
 		else
-			send_error(cs, "invalide_cmd");
+			send_error(cs, "invalid_cmd");
 		ft_bzero(buf, 1024);
 	}
 }

@@ -6,17 +6,11 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:51:57 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/17 14:27:54 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/17 15:42:05 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <libft.h>
+#include "../includes/client.h"
 
 void	usage(char *str)
 {
